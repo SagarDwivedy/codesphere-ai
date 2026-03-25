@@ -6,6 +6,11 @@
     "outDir": "dist",
     "strict": true,
     "esModuleInterop": true,
+
+    "moduleResolution": "node",
+    "types": ["node"],
+    "lib": ["ES2020"],
+
     "typeRoots": ["./src/types", "./node_modules/@types"]
   },
   "include": ["src/**/*"]
