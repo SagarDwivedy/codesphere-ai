@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import api from '../api/axios';
-import type { Chat, Message } from '../types';
+import type { Message } from '../types';
 
 export const useChat = () => {
   const [messages, setMessages] = useState<Message[]>([]);
