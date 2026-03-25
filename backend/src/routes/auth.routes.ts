@@ -10,7 +10,7 @@ router.post('/login', login);
 router.post('/logout', logout);
 
 router.get('/me', protect, (req, res) => {
-  res.json({ message: 'Authenticated', userId: req.user?.id });
+  res.json({ message: 'Authenticated', userId: (req as any).user?.id });
 });
 
 
