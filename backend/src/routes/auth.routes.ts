@@ -13,4 +13,5 @@ router.get('/me', protect, (req, res) => {
   res.json({ message: 'Authenticated', userId: req.user?.id });
 });
 
+
 export default router;
