@@ -1,20 +1,14 @@
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-});
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export const sendOTPEmail = async (
   to: string,
   otp: string,
   name: string
 ): Promise<void> => {
-  await transporter.sendMail({
-    from: `"CodeSphere AI" <${process.env.EMAIL_USER}>`,
+  await resend.emails.send({
+    from: 'CodeSphere AI <onboarding@resend.dev>',
     to,
     subject: 'Your CodeSphere AI verification code',
     html: `
@@ -25,16 +19,13 @@ export const sendOTPEmail = async (
           </div>
           <h2 style="color: #111; margin-top: 12px;">CodeSphere AI</h2>
         </div>
-
         <p style="color: #444; font-size: 15px;">Hi ${name},</p>
         <p style="color: #444; font-size: 15px;">Your verification code is:</p>
-
         <div style="text-align: center; margin: 28px 0;">
           <div style="display: inline-block; background: #f1f3f5; border-radius: 12px; padding: 20px 40px;">
             <span style="font-size: 36px; font-weight: bold; letter-spacing: 12px; color: #4f46e5;">${otp}</span>
           </div>
         </div>
-
         <p style="color: #888; font-size: 13px; text-align: center;">
           This code expires in <strong>10 minutes</strong>.<br/>
           If you didn't request this, ignore this email.
