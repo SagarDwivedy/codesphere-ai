@@ -22,7 +22,12 @@ export const registerUser = async (
       existingUser.otp = otp;
       existingUser.otpExpiry = otpExpiry;
       await existingUser.save();
-      await sendOTPEmail(email, otp, existingUser.name);
+      try {
+  await sendOTPEmail(email, otp, name);
+} catch (emailError) {
+  console.error('Email sending failed:', emailError);
+  // Continue anyway — user can request resend
+}
       return existingUser;
     }
     throw new Error('User already exists');
