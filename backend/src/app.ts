@@ -30,15 +30,19 @@ app.use(cookieParser());
 const allowedOrigins = [
   'http://localhost:5173',
   'https://codesphere-6azu4iuc2-sagardwivedys-projects.vercel.app',
+  'https://codesphere-ai.vercel.app',
   process.env.FRONTEND_URL,
-].filter(Boolean);
+].filter(Boolean) as string[];
 
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
+      // Allow requests with no origin (mobile apps, Postman)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
+        console.error(`CORS blocked: ${origin}`);
         callback(new Error('Not allowed by CORS'));
       }
     },
