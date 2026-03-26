@@ -23,8 +23,9 @@ export const useChat = () => {
       const token = localStorage.getItem('token');
       abortRef.current = new AbortController();
 
-      const response = await fetch(
-        `http://localhost:5000/api/chats/${chatId}/message`,
+     const BASE = import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:5000';
+     const response = await fetch(
+     `${BASE}/api/chats/${chatId}/message`,
         {
           method: 'POST',
           headers: {
