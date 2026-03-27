@@ -44,10 +44,14 @@ export const registerUser = async (
     password: hashedPassword,
     otp,
     otpExpiry,
-    isVerified: false,
+    isVerified: true,
   });
 
+  try {
   await sendOTPEmail(email, otp, name);
+} catch (err) {
+  console.error('Email failed:', err);
+}
   return user;
 };
 
