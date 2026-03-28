@@ -88,11 +88,6 @@ export const loginUser = async (
   const user = await User.findOne({ email });
   if (!user) throw new Error('Invalid credentials');
 
-  // Block unverified users
-  if (!user.isVerified) {
-    throw new Error('Please verify your email first');
-  }
-
   const isMatch = await bcrypt.compare(password, user.password);
   if (!isMatch) throw new Error('Invalid credentials');
 
